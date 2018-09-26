@@ -2,6 +2,7 @@
 
 export(cap_first_letter)
 export(dist_to_df)
+export(get_n_polytomy)
 export(get_pd_alpha)
 export(logit_tran)
 export(mvpd)
