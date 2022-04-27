@@ -4,8 +4,7 @@
 \alias{panel.cor}
 \title{\code{panel.cor} to plot absolute value of correlations}
 \usage{
-panel.cor(x, y, digits = 2, prefix = "", cex.cor,
-  color.threshold = 0.5, ...)
+panel.cor(x, y, digits = 2, prefix = "", cex.cor, color.threshold = 0.5, ...)
 }
 \description{
 \code{panel.cor} to plot absolute value of correlations

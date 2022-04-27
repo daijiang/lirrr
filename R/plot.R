@@ -32,3 +32,33 @@ panel.hist <- function(x, ...) {
     y <- y/max(y)
     rect(breaks[-nB], 0, breaks[-1], y, col = "lightblue", ...)
 }
+
+#' Highlight all branches linking a subset of species in a phylogeny
+#' 
+#' @param phy The large phylogeny to plot.
+#' @param subset_sp A vector of species names to be highlighted on the plot of phylogeny.
+#' @param highlight_color The color to highlight the branches, the default is red.
+#' @return A `ggplot2` object.
+#' 
+highlight_subset_sp_in_phylogeny = function(phy, subset_sp, highlight_color = "red"){
+  phy_df = tidytree::as_tibble(phy)
+  sp_node = filter(phy_df, label %in% subset_sp)$node
+  # all possible combinations
+  sp_comb = as.data.frame(t(combn(as.character(sp_node), 2))) %>% 
+    set_names(c("s1", "s2")) %>% 
+    mutate(s1 = as.integer(s1), s2 = as.integer(s2))
+  nodes_to_connect = vector("list", length = nrow(sp_comb))
+  for(i in 1:nrow(sp_comb)){
+    nodes_to_connect[[i]] = ggtree::get.path(phy, sp_comb[i, 1], sp_comb[i, 2])
+  }
+  nodes_to_highlight = unique(unlist(nodes_to_connect))
+  
+  phy_df2 = mutate(phy_df, member = ifelse(node %in% nodes_to_highlight, "y", "n")) %>% 
+    tidytree::as.treedata()
+  
+  p = ggtree(phy_df2, aes(color = member)) +
+    scale_color_manual(values = c("n" = "black","y" = highlight_color)) +
+    theme(legend.position = "none")
+  
+  return(p)
+}

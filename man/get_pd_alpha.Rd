@@ -4,11 +4,22 @@
 \alias{get_pd_alpha}
 \title{Calculate alpha phylogenetic diversity}
 \usage{
-get_pd_alpha(samp_wide, tree, samp_long, null.model.pd.root = FALSE,
-  null.model.phylomeasures = TRUE, null.model.phylocom = FALSE,
-  null.type.phylomeasures = "uniform", null.type.phylocom = 0,
-  null.type.picante = "taxa.labels", n.item = 999,
-  abund.weight = FALSE, verbose = TRUE, vpd = FALSE, ...)
+get_pd_alpha(
+  samp_wide,
+  tree,
+  samp_long,
+  null.model.pd.root = FALSE,
+  null.model.phylomeasures = TRUE,
+  null.model.phylocom = FALSE,
+  null.type.phylomeasures = "uniform",
+  null.type.phylocom = 0,
+  null.type.picante = "taxa.labels",
+  n.item = 999,
+  abund.weight = FALSE,
+  verbose = TRUE,
+  vpd = FALSE,
+  ...
+)
 }
 \arguments{
 \item{samp_wide}{Wide version of samp_long, row.names are sites, colnames are species.}

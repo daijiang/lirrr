@@ -4,7 +4,9 @@
 \name{tree}
 \alias{tree}
 \title{#' Example phylogeny}
-\format{Newick format}
+\format{
+Newick format
+}
 \usage{
 tree
 }
