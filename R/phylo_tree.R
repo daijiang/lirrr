@@ -10,7 +10,7 @@
 #' get_n_polytomy(tree)
 #' 
 get_n_polytomy = function(tree){
-  d = tidytree::as_data_frame(tree)
+  d = tidytree::as_tibble(tree)
   root_node = which(d$parent == d$node)
   n_terminal_polytomy = d[1:(root_node - 1), ] %>% 
     dplyr::group_by(parent) %>%

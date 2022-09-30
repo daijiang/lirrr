@@ -9,13 +9,16 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: yes
 Depends: R (>= 3.5)
-RoxygenNote: 7.1.2
-Remotes: ropensci/phylocomr
+RoxygenNote: 7.2.1
 Imports: 
     plyr,
+    dplyr,
+    purrr,
+    stringr,
+    tibble,
+    tidyr,
     reshape2,
     rotl,
-    tidyverse,
     vegan,
     ape,
     picante,
@@ -23,4 +26,10 @@ Imports:
     PhyloMeasures,
     tidytree,
     ggtree
-Suggests: testthat
+Suggests: 
+    testthat,
+    betapart
+Additional_repositories: 
+    https://ropensci.r-universe.dev
+Remotes: 
+    constantinosTsirogiannis/PhyloMeasures
