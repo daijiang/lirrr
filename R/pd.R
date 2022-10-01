@@ -121,7 +121,9 @@ get_pd_alpha = function(samp_wide, tree, samp_long,
                         null.type.phylocom = 0, null.type.picante = "taxa.labels",
                         n.item = 999,
                         abund.weight = FALSE, 
-                        verbose = TRUE, vpd = FALSE, ...){
+                        verbose = TRUE, vpd = FALSE, 
+                        include.root = FALSE,
+                        ...){
   if(length(class(tree)) > 1 & "phylo" %in% class(tree)) class(tree) = "phylo"
   dist = cophenetic(tree)
   
@@ -146,13 +148,13 @@ get_pd_alpha = function(samp_wide, tree, samp_long,
                                                     null.model = null.type.phylomeasures)
     }
   # rooted pd
-    faith_pd2 = pd2(samp_wide, tree, include.root = TRUE) %>% select(site, pd.root)
+    faith_pd2 = pd2(samp_wide, tree, include.root = include.root) %>% select(site, pd.root)
     if(null.model.pd.root) {
       message("no analytical null model for rooted pd calculated with phylocom/picante yet.")
       pd_z = purrr::map(1:n.item, function(x){
         set.seed(x)
         if(verbose) cat("null model of pd", x, "\t")
-        x2 = pd2(samp_wide, picante::tipShuffle(tree), include.root = TRUE) %>% select(site, pd.root)
+        x2 = pd2(samp_wide, picante::tipShuffle(tree), include.root = include.root) %>% select(site, pd.root)
         x2
       })
       names(pd_z) = paste0("rep_", 1:n.item)
@@ -305,7 +307,7 @@ unifrac2 <- function(comm, tree, comm_long) {
                    rename(PD = pd, site = sample))
     if ("try-error" %in% class(pdcomm)) {
         cat("Phylocom has trouble with this phlyogney, switch to picante", "\n")
-        pdcomm = picante::pd(comm, tree, include.root = TRUE)
+        pdcomm = picante::pd(comm, tree, include.root = include.root)
         pdcomm_comb <- picante::pd(comm_comb, tree)
     } else {
         comm_comb_long = tibble::rownames_to_column(as.data.frame(comm_comb), "site") %>% 
@@ -386,11 +388,11 @@ phylo_betapart = function(comm = dat_1, tree){
   labcomb <-  apply(combin, 2, function(x) paste(rownames(comm)[x], collapse = "__"))
   colnames(combin) = labcomb
   
-  pds <-  pd2(comm, tree, include.root = TRUE) # PD for each community of the community matrix
+  pds <-  pd2(comm, tree, include.root = include.root) # PD for each community of the community matrix
   pd_sites = pds$pd.root
   names(pd_sites) = pds$site
   com.tot.pair <- 1 * t(apply(combin, 2, function(x) (colSums(comm[x,]) > 0))) # which species in these pairs of comm
-  pd.tot.pair0 <- pd2(com.tot.pair, tree, include.root = TRUE)  # PD of the two communities combined
+  pd.tot.pair0 <- pd2(com.tot.pair, tree, include.root = include.root)  # PD of the two communities combined
   pd.tot.pair = pd.tot.pair0$pd.root
   names(pd.tot.pair) = pd.tot.pair0$site
   sum.pd.pair <- apply(combin, 2, function(x) sum(pd_sites[x])) # Sum of PD for each community, separetely
