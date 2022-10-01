@@ -1,7 +1,7 @@
 Package: lirrr
 Type: Package
 Title: Functions collected/wrote by Daijiang Li
-Version: 0.0.1
+Version: 0.0.2
 Date: 2018-09-02
 Authors@R: c(person("Daijiang", "Li", , "daijianglee@gmail.com", role = c("aut", "cre")))
 Description: To keep all my functions in one place, and to use them more easily.
@@ -32,4 +32,4 @@ Suggests:
 Additional_repositories: 
     https://ropensci.r-universe.dev
 Remotes: 
-    constantinosTsirogiannis/PhyloMeasures
+    cran/PhyloMeasures
