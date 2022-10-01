@@ -99,6 +99,8 @@ mvpd <- function(samp, dis, abundance.weighted = FALSE){
 #' @param tree A phylogeny with class of 'phylo'.
 #' @param samp_long A 3-column data frame, site, freq, sp.
 #' @param null.model.pd.root Whether to run null models for rooted PD?
+#' @param null.model.phylomeasures Whether to run null models using PhyloMeasures package?
+#' @param null.model.phylocom Whether to run null models using phylocomr package?
 #' @param null.type.phylomeasures If null.model is TRUE, which null model to use for PhyloMeasure? 
 #' @param null.type.phylocom If null.model is TRUE, which null model to use for Phylocom? 
 #' - 0: phylogeny shuffle. 
@@ -111,14 +113,17 @@ mvpd <- function(samp, dis, abundance.weighted = FALSE){
 #' @param abund.weight Should abundance information used when calculating pd with Phylocom/Picante? Default is FALSE.
 #' @param verbose Do you want to see relevant information?
 #' @param vpd To calculate vpd (varance of pairwise distance) or not?
+#' @param ... Additional arguments.
 #' @return A data frame.
 #' @export
 #' 
 get_pd_alpha = function(samp_wide, tree, samp_long, 
                         null.model.pd.root = FALSE,
-                        null.model.phylomeasures = TRUE, null.model.phylocom = FALSE,
+                        null.model.phylomeasures = TRUE, 
+                        null.model.phylocom = FALSE,
                         null.type.phylomeasures = "uniform", 
-                        null.type.phylocom = 0, null.type.picante = "taxa.labels",
+                        null.type.phylocom = 0, 
+                        null.type.picante = "taxa.labels",
                         n.item = 999,
                         abund.weight = FALSE, 
                         verbose = TRUE, vpd = FALSE, 
@@ -360,7 +365,7 @@ phylo_betapart = function(comm = dat_1, tree){
     comm[comm > 1] = 1
   }
   
-  if (class(tree)!="phylo")
+  if (!inherits(tree, "phylo"))
     stop("### invalid tree's format: \"phylo\" format required ###\n\n", call. = TRUE)
   if(any(!(colnames(comm)%in%tree$tip)))
     warning("At least one species in community matrix is not included in the tree" , call. = TRUE)

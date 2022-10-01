@@ -30,6 +30,10 @@ get_pd_alpha(
 
 \item{null.model.pd.root}{Whether to run null models for rooted PD?}
 
+\item{null.model.phylomeasures}{Whether to run null models using PhyloMeasures package?}
+
+\item{null.model.phylocom}{Whether to run null models using phylocomr package?}
+
 \item{null.type.phylomeasures}{If null.model is TRUE, which null model to use for PhyloMeasure?}
 
 \item{null.type.phylocom}{If null.model is TRUE, which null model to use for Phylocom? 
@@ -48,6 +52,8 @@ See ?phylocomr::ph_comstruct for details}
 \item{verbose}{Do you want to see relevant information?}
 
 \item{vpd}{To calculate vpd (varance of pairwise distance) or not?}
+
+\item{...}{Additional arguments.}
 }
 \value{
 A data frame.
