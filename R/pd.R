@@ -35,10 +35,10 @@ pd2 = function(comm, tree, include.root = TRUE, comm_long){
         tibble::rownames_to_column("site") %>% rename(pd.root = PD)
     } 
     
-    pdcomm = tibble::data_frame(site = row.names(comm)) %>% 
+    pdcomm = tibble::tibble(site = row.names(comm)) %>% 
       dplyr::left_join(pdcomm, by = "site") # make sure the same 
   } else {
-    pdcomm = tibble::data_frame(site = row.names(comm),
+    pdcomm = tibble::tibble(site = row.names(comm),
                                 pd.uroot = PhyloMeasures::pd.query(tree, comm, standardize = FALSE)
     )
   }
@@ -144,7 +144,7 @@ get_pd_alpha = function(samp_wide, tree, samp_long,
   
   # faith pd
   # unrooted pd
-    faith_pd = tibble::data_frame(site = row.names(samp_wide),
+    faith_pd = tibble::tibble(site = row.names(samp_wide),
                        pd.uroot = PhyloMeasures::pd.query(tree = tree, matrix = samp_wide, standardize = FALSE)
     )
     if(null.model.phylomeasures){
@@ -182,7 +182,7 @@ get_pd_alpha = function(samp_wide, tree, samp_long,
       if("try-error" %in% class(mpd_mntd)){
         if(verbose) cat("Phylocom has trouble with this phlyogney, switch to picante", "\n")
         mpd_mntd = mvpd(samp_wide, dist, abundance.weighted = TRUE) %>% left_join(
-          tibble::data_frame(site = row.names(samp_wide),
+          tibble::tibble(site = row.names(samp_wide),
                              mntd = picante::mntd(samp_wide, dist, abundance.weighted = TRUE)
           ), by = "site")
         cat("No null model for mpd/mntd with picante yet", "\n")
@@ -200,7 +200,7 @@ get_pd_alpha = function(samp_wide, tree, samp_long,
       if("try-error" %in% class(mpd_mntd)){
         if(verbose) cat("Phylocom has trouble with this phlyogney, switch to picante", "\n")
         mpd_mntd = mvpd(samp_wide, dist, abundance.weighted = TRUE) %>% left_join(
-          tibble::data_frame(site = row.names(samp_wide),
+          tibble::tibble(site = row.names(samp_wide),
                              mntd = picante::mntd(samp_wide, dist, abundance.weighted = TRUE)
           ), by = "site")
       } else {
@@ -210,7 +210,7 @@ get_pd_alpha = function(samp_wide, tree, samp_long,
     out = left_join(out, mpd_mntd, by = "site")
   } else { # no weight on abundance, i.e. presence/absence, use PhyloMeasures, 
     # results equal with phylocom/picante with abundace.weight = F
-    mpd_s = tibble::data_frame(site = row.names(samp_wide),
+    mpd_s = tibble::tibble(site = row.names(samp_wide),
                                mpd = PhyloMeasures::mpd.query(tree, samp_wide, standardize = FALSE)
     )
     if(null.model.phylomeasures){
@@ -219,7 +219,7 @@ get_pd_alpha = function(samp_wide, tree, samp_long,
                                              null.model = null.type.phylomeasures)
     }
     
-    mntd_s = tibble::data_frame(site = row.names(samp_wide),
+    mntd_s = tibble::tibble(site = row.names(samp_wide),
                                 mntd = PhyloMeasures::mntd.query(tree, samp_wide, standardize = FALSE)
     )
     if(null.model.phylomeasures){
@@ -321,7 +321,7 @@ unifrac2 <- function(comm, tree, comm_long) {
         pdcomm_comb = try(phylocomr::ph_pd(sample = comm_comb_long, phylo = tree) %>%
                             rename(PD = pd, site = sample) %>% arrange(site))
     }
-    pdcomm = tibble::data_frame(site = row.names(comm)) %>% left_join(pdcomm, by = "site")  # make sure the same order
+    pdcomm = tibble::tibble(site = row.names(comm)) %>% left_join(pdcomm, by = "site")  # make sure the same order
     
     i <- 1
     for (l in 1:(s - 1)) {
@@ -648,7 +648,7 @@ phylo_betapart = function(comm = dat_1, tree){
 #'   }
 #'   
 #'   # clean outputs
-#'   out = tibble::as_data_frame(t(combn(row.names(samp_wide), 2))) %>% 
+#'   out = tibble::as_tibble(t(combn(row.names(samp_wide), 2))) %>% 
 #'     rename(site1 = V1, site2 = V2)
 #'   
 #'   if(get.mpd){
@@ -686,7 +686,7 @@ phylo_betapart = function(comm = dat_1, tree){
 #'                  psor = purrr::map2_dbl(.x = site1, .y = site2, ~psor[.x, .y]),
 #'                  psor_turnover = purrr::map2_dbl(.x = site1, .y = site2, ~psor_turnover[.x, .y]),
 #'                  psor_nested = purrr::map2_dbl(.x = site1, .y = site2, ~psor_nested[.x, .y])) %>% 
-#'       bind_rows(data_frame(site1 = "multi_sites", site2 = "multi_sites", unif = unif_multi, 
+#'       bind_rows(tibble(site1 = "multi_sites", site2 = "multi_sites", unif = unif_multi, 
 #'                            unif_turnover = unif_turnover_multi, unif_nested = unif_nested_multi,
 #'                            psor = psor_multi, 
 #'                            psor_turnover = psor_turnover_multi, psor_nested = psor_nested_multi))
