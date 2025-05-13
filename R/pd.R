@@ -153,8 +153,15 @@ get_pd_alpha = function(samp_wide, tree, samp_long,
                                                     null.model = null.type.phylomeasures)
     }
   # rooted pd
-    faith_pd2 = pd2(samp_wide, tree, include.root = include.root) %>% select(site, pd.root)
+    faith_pd2 = pd2(samp_wide, tree, include.root = include.root) 
+    if(include.root) {
+      faith_pd2 = dplyr::select(faith_pd2, site, pd.root)
+    } else {
+      faith_pd2 = dplyr::select(faith_pd2, site) # uroot already in faith_pd
+    }
+    
     if(null.model.pd.root) {
+      if(!include.root) stop("`include.root = FALSE`, please set it to TRUE")
       message("no analytical null model for rooted pd calculated with phylocom/picante yet.")
       pd_z = purrr::map(1:n.item, function(x){
         set.seed(x)
