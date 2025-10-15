@@ -3,14 +3,21 @@
 \docType{data}
 \name{tree}
 \alias{tree}
+\alias{world_moll}
 \title{#' Example phylogeny}
 \format{
 Newick format
+
+sf object
 }
 \usage{
 tree
+
+world_moll
 }
 \description{
 A phylogeny with more species than the community data
+
+A `sf` object, with medium spatial resolution downloaded from {rnaturalearth}.
 }
 \keyword{datasets}

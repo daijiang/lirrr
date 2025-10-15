@@ -30,3 +30,12 @@
 #' @format Newick format
 "tree"
 
+#' #' World map with Mollweide CRS
+#'
+#' A `sf` object, with medium spatial resolution downloaded from {rnaturalearth}.
+#'
+#' @docType data
+#' @keywords datasets
+#' @name tree
+#' @format sf object
+"world_moll"

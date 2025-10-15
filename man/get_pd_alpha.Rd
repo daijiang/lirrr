@@ -18,6 +18,7 @@ get_pd_alpha(
   abund.weight = FALSE,
   verbose = TRUE,
   vpd = FALSE,
+  include.root = FALSE,
   ...
 )
 }
@@ -52,6 +53,8 @@ See ?phylocomr::ph_comstruct for details}
 \item{verbose}{Do you want to see relevant information?}
 
 \item{vpd}{To calculate vpd (varance of pairwise distance) or not?}
+
+\item{include.root}{Include the root of the tree?}
 
 \item{...}{Additional arguments.}
 }

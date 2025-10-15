@@ -4,7 +4,7 @@
 \alias{phylo_betapart}
 \title{Phylogenetic beta diversity partition}
 \usage{
-phylo_betapart(comm = dat_1, tree)
+phylo_betapart(comm = dat_1, tree, ...)
 }
 \arguments{
 \item{comm}{A site by species data frame, site names as row names.}

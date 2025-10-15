@@ -1,15 +1,15 @@
 Package: lirrr
 Type: Package
 Title: Functions collected/wrote by Daijiang Li
-Version: 0.0.2
-Date: 2018-09-02
+Version: 0.0.3
+Date: 2025-10-02
 Authors@R: c(person("Daijiang", "Li", , "daijianglee@gmail.com", role = c("aut", "cre")))
 Description: To keep all my functions in one place, and to use them more easily.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: yes
 Depends: R (>= 3.5)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.3.3
 Imports: 
     plyr,
     dplyr,
@@ -25,7 +25,9 @@ Imports:
     phylocomr,
     PhyloMeasures,
     tidytree,
-    ggtree
+    ggtree,
+    sf,
+    raster
 Suggests: 
     testthat,
     betapart

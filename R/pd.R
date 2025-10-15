@@ -113,6 +113,7 @@ mvpd <- function(samp, dis, abundance.weighted = FALSE){
 #' @param abund.weight Should abundance information used when calculating pd with Phylocom/Picante? Default is FALSE.
 #' @param verbose Do you want to see relevant information?
 #' @param vpd To calculate vpd (varance of pairwise distance) or not?
+#' @param include.root Include the root of the tree?
 #' @param ... Additional arguments.
 #' @return A data frame.
 #' @export
@@ -357,7 +358,7 @@ unifrac2 <- function(comm, tree, comm_long) {
 #' Similarly for the multisite version.
 #' @export
 #'
-phylo_betapart = function(comm = dat_1, tree){
+phylo_betapart = function(comm = dat_1, tree, ...){
   # adapted from betaprt::phylo.beta
   
   if (!is.matrix(comm)) {
@@ -400,11 +401,11 @@ phylo_betapart = function(comm = dat_1, tree){
   labcomb <-  apply(combin, 2, function(x) paste(rownames(comm)[x], collapse = "__"))
   colnames(combin) = labcomb
   
-  pds <-  pd2(comm, tree, include.root = include.root) # PD for each community of the community matrix
+  pds <-  pd2(comm, tree, ...) # PD for each community of the community matrix
   pd_sites = pds$pd.root
   names(pd_sites) = pds$site
   com.tot.pair <- 1 * t(apply(combin, 2, function(x) (colSums(comm[x,]) > 0))) # which species in these pairs of comm
-  pd.tot.pair0 <- pd2(com.tot.pair, tree, include.root = include.root)  # PD of the two communities combined
+  pd.tot.pair0 <- pd2(com.tot.pair, tree, ...)  # PD of the two communities combined
   pd.tot.pair = pd.tot.pair0$pd.root
   names(pd.tot.pair) = pd.tot.pair0$site
   sum.pd.pair <- apply(combin, 2, function(x) sum(pd_sites[x])) # Sum of PD for each community, separetely
