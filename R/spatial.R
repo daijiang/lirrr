@@ -5,9 +5,10 @@
 #' @return A list of two sf objectives: `grid_sf` is the grid cells of the world; 
 #' `grid_land` only contains the grid cells that intersected with terrestrial lands,
 #' which can be further filtered by continent, or country, etc.
+#' @export
 #' 
 make_world_grids = function(cell_size = 100000, ...){
-  grid <- sf::st_make_grid(world_moll, cellsize = cell_size, ...) # 100 km = 100,000 m
+  grid <- sf::st_make_grid(lirrr::world_moll, cellsize = cell_size, ...) # 100 km = 100,000 m
   grid_sf <- sf::st_sf(
     cell_id = paste0("cell_", 1:length(grid)),
     geometry = grid
