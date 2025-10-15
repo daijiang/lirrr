@@ -4,17 +4,18 @@
 \alias{make_world_grids}
 \title{Make grid cells across the lands of world}
 \usage{
-make_world_grids(cell_size = 1e+05, ...)
+make_world_grids(cell_size = 1e+05, exclude_Antarctica = TRUE, ...)
 }
 \arguments{
 \item{cell_size}{The size of the cell, default is 100 km by 100 km.}
+
+\item{exclude_Antarctica}{Exclude Antarctica in the land grid cells? Default is TRUE.}
 
 \item{...}{Additional arguments to be passed into `sf::st_make_grid()`.}
 }
 \value{
 A list of two sf objectives: `grid_sf` is the grid cells of the world; 
-`grid_land` only contains the grid cells that intersected with terrestrial lands,
-which can be further filtered by continent, or country, etc.
+`grid_land` only contains the grid cells that intersected with terrestrial lands.
 }
 \description{
 Make grid cells across the lands of world
